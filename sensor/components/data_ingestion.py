@@ -12,6 +12,7 @@ class DataIngestion:
     
     def __init__(self,data_ingestion_config:config_entity.DataIngestionConfig ):
         try:
+            logging.info(f"{'>>'*20} Data Ingestion {'<<'*20}")
             self.data_ingestion_config = data_ingestion_config
         except Exception as e:
             raise SensorException(e, sys)
@@ -64,8 +65,4 @@ class DataIngestion:
             return data_ingestion_artifact
 
         except Exception as e:
-            raise SensorException(error_message=e, error_detail=sys)
-
-
-
-        
+            raise SensorException(error_message=e, error_detail=sys) 
