@@ -31,7 +31,7 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
-        
+
       - name: Install Utilities
         run: |
           sudo apt-get update
@@ -83,6 +83,10 @@ jobs:
         run: |
          docker pull ${{secrets.AWS_ECR_LOGIN_URI}}/${{ secrets.ECR_REPOSITORY_NAME }}:latest
       
+      - name: Stop and remove sensor container if running
+        run: |
+         docker ps -q --filter "name=sensor" | grep -q . && docker stop sensor && docker rm -fv sensor
+         
       - name: Run Docker Image to serve users
         run: |
          export IMAGE_NAME="${{ secrets.AWS_ECR_LOGIN_URI }}"/"${{ secrets.ECR_REPOSITORY_NAME }}":latest AWS_ACCESS_KEY_ID="${{ secrets.AWS_ACCESS_KEY_ID }}" AWS_SECRET_ACCESS_KEY="${{ secrets.AWS_SECRET_ACCESS_KEY }}" AWS_DEFAULT_REGION="${{ secrets.AWS_REGION }}" BUCKET_NAME="${{ secrets.BUCKET_NAME }}" MONGO_DB_URL="${{ secrets.MONGO_DB_URL }}" && docker compose up -d
