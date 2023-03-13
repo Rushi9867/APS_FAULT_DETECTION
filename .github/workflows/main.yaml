@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - 'README.md'
 
 permissions:
   id-token: write
@@ -22,8 +24,8 @@ jobs:
 
       - name: Run unit tests
         run: echo "Running unit tests"
-
- build-and-push-ecr-image:
+        
+ build-and-push-ecr-image:        
   name: Continuous Delivery
   needs: integration
   runs-on: ubuntu-latest
