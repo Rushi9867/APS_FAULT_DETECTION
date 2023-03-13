@@ -1,4 +1,4 @@
-FROM python:3.8
+FROM python:3.8.5-slim-buster
 USER root
 RUN mkdir /app
 COPY . /app/
