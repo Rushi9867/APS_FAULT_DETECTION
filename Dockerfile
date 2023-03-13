@@ -9,7 +9,7 @@ ENV AIRFLOW__CORE__DAGBAG_IMPORT_TIMEOUT=1000
 ENV AIRFLOW__CORE__ENABLE_XCOM_PICKLING=True
 RUN airflow db init 
 RUN airflow users create  -e rushikhandare2203@gmail.com -f Rushikesh -l Khandare -p admin -r Admin  -u admin
-RUN chmod 777 start.sh
+#RUN chmod 777 start.sh
 RUN apt update -y && apt install awscli -y
 ENTRYPOINT [ "/bin/sh" ]
-CMD ["start.sh"]
+CMD ["python3","train.py"]
